@@ -65,7 +65,8 @@ if (!String.prototype.quote)
 let app = express()
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
-var PORT = process.env.port || 3000;
+// var PORT = process.env.port || 3000;
+   var port = process.env.PORT || 3000;
 
 
 // Sets up the Express app to handle data parsing
@@ -163,9 +164,9 @@ app.post("/api/friends", (req, res) => {
 // =============================================================
 
 console.log("process.env", process.env);
-console.log("PORT", PORT);
-let go = _ => app.listen(PORT, function() {
-	console.log("App listening on PORT " + PORT);
+console.log("port", port);
+let go = _ => app.listen(port, function() {
+	console.log("App listening on PORT " + port);
 });
 
 
