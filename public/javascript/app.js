@@ -28,6 +28,7 @@ $(document).ready(function() {
 			[1, 2, 3, 4, 5].forEach(function(response) {
 				questionOptionsSelector.append($("<option>").data("question-num", i)
 					.text(responseText[response]).val("3")
+					.attr("placeholder", "Choose an answer")
 				)
 			});
 			element.append(questionOptionsSelector);

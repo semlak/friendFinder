@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-
+const favicon = require("serve-favicon");
 
 // Friends(DATA)
 // =============================================================
@@ -61,8 +61,12 @@ if (!String.prototype.quote)
 
 // Sets up the Express App
 // =============================================================
-var app = express();
+// var app = express();
+let app = express()
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+
 var PORT = process.env.port || 3000;
+
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({
