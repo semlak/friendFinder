@@ -161,6 +161,9 @@ app.post("/api/friends", (req, res) => {
 
 // Starts the server to begin listening
 // =============================================================
+
+console.log("process.env", process.env);
+console.log("PORT", PORT);
 let go = _ => app.listen(PORT, function() {
 	console.log("App listening on PORT " + PORT);
 });
