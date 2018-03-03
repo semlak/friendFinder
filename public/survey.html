@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8"/>
         <title>
-            Cuddly Friend Finder
+            Awesome Friend Finder
         </title>
         <!-- Latest compiled and minified CSS & JS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
@@ -15,7 +15,7 @@
                 <h1>
                     <i class="fa fa-facebook-square" aria-hidden="true">
                     </i>
-                    Cuddly Friend Finder
+                    Awesome Friend Finder
                 </h1>
             </div>
             <div class="row">
@@ -156,14 +156,14 @@
                 );
                 let questionOptionsSelector = $("<select>").addClass("form-control survey-question")
                     .attr("id", "question" + i);
-                    let rand = Math.floor(Math.random()*5)+1;
+                    // let rand = Math.floor(Math.random()*5)+1;
                 [0, 1, 2, 3, 4, 5].forEach(function(response) {
                     questionOptionsSelector.append($("<option>").data("question-num", i)
                         .text(responseText[response])
                         .attr("value", response > 0 ? response :"")
                         // .attr("value", response > 0 ? response : Math.floor(Math.random(5)))
-                        // .prop("selected", response === 0)
-                        .prop("selected", response === rand)
+                        .prop("selected", response === 0)
+                        // .prop("selected", response === rand)
                         .attr("placeholder", "Choose an answer")
                     )
                 });
@@ -171,8 +171,8 @@
                 $("#questions-list").append(element);
 
 
-                $("#nameInput").val("Xena");
-                $("#image").val("blah");
+                // $("#nameInput").val("Xena");
+                // $("#image").val("blah");
 
             })
         })

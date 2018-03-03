@@ -33,9 +33,7 @@ require("./routing/htmlRoutes")(app);
 
 
 
-const go = _ => app.listen(port, function() {
+app.listen(port, function() {
 	console.log("App listening on PORT " + port);
 });
 
-
-go();
