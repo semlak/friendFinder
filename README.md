@@ -1,6 +1,18 @@
-# **Instructions**
-
-* Spend a few moments looking over the code sent to you. First, get the server running, then begin to dissect the JavaScript code found at the bottom of `add.html`.
-
-* Explain to one another what the code does, what its for, and why its relevant to the application so far. Be sure to explain to one another what the `$.post` code is doing.
 # friendFinder
+
+
+This is a basic Node/Express application demoed to function as a friend finding application (dating, connecting). The application uses Node/Express for the backend, no persistant database, and basic html/css on the  front end with JavaScript/jQuery and Bootstrap for styling.
+
+The application is deployed at [https://quiet-forest-63627.herokuapp.com/](https://quiet-forest-63627.herokuapp.com/)
+
+If you would like to run on your own server, you can clone the project
+## To Run:
+First, you need git, node, and npm installed. Assuming your ready for that:
+
+
+```
+git clone https://github.com/semlak/friendFinder/
+cd friendFinder
+npm install
+npm start
+```

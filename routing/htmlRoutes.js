@@ -1,0 +1,15 @@
+const path = require("path");
+
+
+module.exports = (app) => {
+	// Basic route that sends the user first to the AJAX Page
+	app.get("/", (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/home.html"));
+	});
+
+	app.get("/survey", (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/survey.html"));
+	})
+
+
+}

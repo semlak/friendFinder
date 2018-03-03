@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            Cuddly Friend Finder
+        </title>
+        <!-- Latest compiled and minified CSS & JS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h1>
+                    <i class="fa fa-facebook-square" aria-hidden="true">
+                    </i>
+                    Cuddly Friend Finder
+                </h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form>
+                        <h3>
+                            About You
+                        </h3>
+                        <div class="form-group">
+                            <label for="nameInput">
+                                Name (Required)
+                            </label>
+                            <input type="text" class="form-control" id="nameInput" placeholder="Xena"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">
+                                Link to Photo Image (Required)
+                            </label>
+                            <!-- <div class="input-group mb-3"> -->
+                            <!-- <div class="input-group-prepend"> -->
+                            <!-- <span class="input-group-text" id="basic-addon3">https://www.awesomephoto.com</span> -->
+                            <!-- </div> -->
+                            <input type="text" class="form-control" id="image" placeholder="https://www.awesomephoto.com"/>
+                        </div>
+                        <!-- </div> -->
+                        <hr/>
+                        <div id="questions-list">
+                        </div>
+                        <button type="submit" id="submit-survey-button" class="btn btn-primary btn-lg btn-block">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                        <a href="/api/friends/" target="_blank">
+                            API Friends List
+                        </a>
+                        |
+                        <a href="https://github.com/semlak/friendFinder/" target="_blank">
+                            GitHub Repository
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="friendModal" tabindex="-1" role="dialog" aria-labelledby="friendModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="friendModalLabel">Your Results</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary square" data-dismiss="modal">Okay</button>
+                        <button type="button" class="btn btn-info square" data-dismiss="modal">Next Match</button>
+                        <button type="button" class="btn btn-warning square" data-dismiss="modal">Send Message!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="optionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="optionsModalLabel">App Options</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                          <div class="form-group">
+                            <label for="gifResultLimit">Number of GIFs to return</label>
+                            <div id="slider">
+                                <input class="bar" type="range" id="rangeinput" value="10" min="1" max="50"/>
+                                <span class="highlight"></span>
+                                <output id="rangevalue">10</output>
+                            </div>
+                            <small id="slider-help" class="form-text text-muted">You can set the number of gifs initially displayed after clicking the topic. Does not apply to existing tabs.</small>
+
+                          </div>
+                    </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type ="button" id="options-submit" class="btn btn-primary square">Submit</button>
+
+                        <button type="button" class="btn btn-danger square" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+
+    <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+    <!-- <script src="http://localhost:3000/assets/javascript/app.js"></script> -->
+    <script>
+
+        // console.log("loading");
+
+    $(document).ready(function() {
+        // console.log("running");
+        $("#questions-list").empty();
+        $.ajax({
+            url: "/api/survey",
+            method: "GET"
+        }).done(function(data) {
+            var questions = data;
+            let responseText = {
+                0: "Choose an answer:",
+                1: "1 (Strongly Disagree)",
+                2: "2",
+                3: "3",
+                4: "4",
+                5: "5 (Strongly Agree)"
+            }
+            // console.log(data);
+            questions.forEach(function(question, i) {
+                var element = $("<div>").addClass("form-group question-container")
+                    .append($("<h3>").text("Question " + i))
+                    .append($("<div>").attr("label", "question" + i)
+                        .text(question)
+                );
+                let questionOptionsSelector = $("<select>").addClass("form-control survey-question")
+                    .attr("id", "question" + i);
+                    let rand = Math.floor(Math.random()*5)+1;
+                [0, 1, 2, 3, 4, 5].forEach(function(response) {
+                    questionOptionsSelector.append($("<option>").data("question-num", i)
+                        .text(responseText[response])
+                        .attr("value", response > 0 ? response :"")
+                        // .attr("value", response > 0 ? response : Math.floor(Math.random(5)))
+                        // .prop("selected", response === 0)
+                        .prop("selected", response === rand)
+                        .attr("placeholder", "Choose an answer")
+                    )
+                });
+                element.append(questionOptionsSelector);
+                $("#questions-list").append(element);
+
+
+                $("#nameInput").val("Xena");
+                $("#image").val("blah");
+
+            })
+        })
+
+        $("#submit-survey-button").on("click", function(e) {
+            e.preventDefault();
+            var name = $("#nameInput").val().trim();
+            var image = $("#image").val().trim();
+
+            // var responses = [];
+            // var children = $("#questions-list").children();
+            // reschildren ;
+            // children.each(function(i, j) { console.log(i, $(j.this))});
+            var surveyResponses = $.map($(".survey-question"), element => $(element).val()).map(text => parseInt(text));
+
+            // console.log("surveyResponses: ", surveyResponses);
+            if (surveyResponses.some(response => isNaN(response))) {
+                console.log("Please resond to all questions!");
+                return;
+            }
+            if (name.length < 1) {
+                console.log("please input a name");
+                return;
+            }
+            if (image.length < 1) {
+                console.log("Please provide an image");
+                return;
+            }
+
+            // clear responses:
+            $("#nameInput, #image").val("");
+            $(".survey-question").val("");
+            // console.log("surveyResponses: ", surveyResponses);
+            let data = {
+                name,
+                photo: image,
+                scores: surveyResponses
+            }
+            // console.log("data: ", data);
+            $.ajax({
+                url: "/api/friends",
+                method: "POST",
+                data: data
+            }).done(res => {
+                // console.log("post response:", res);
+                let element = $("<div>")
+                    .append($("<h1>").text("Your Match"))
+                    .append($("<h2>").text(res.name))
+                .append($("<img>").addClass("img-fluid")
+                    .attr("src", res.photo)
+                    .attr("data-toggle","popover").attr("data-placement","bottom")
+                    .attr("data-content", res.name)
+                    .css("maxheight", "400")
+                )
+            $("#friendModal .modal-body").append(element);
+            $("#friendModal").modal("show")
+            })
+
+        })
+
+
+    })
+    </script>
+</html>
