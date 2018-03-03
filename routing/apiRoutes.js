@@ -73,6 +73,8 @@ module.exports = (app, express) => {
 	app.post("/api/friends", (req, res) => {
 		let userInput = req.body;
 		let bestMatch = getMostCompatibleFriend(userInput, friends);
+		friends.push(userInput);
+		// console.log(friends);
 		res.json(bestMatch);
 		// do some stuff.
 	});

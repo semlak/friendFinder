@@ -77,41 +77,26 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary square" data-dismiss="modal">Okay</button>
-                        <button type="button" class="btn btn-info square" data-dismiss="modal">Next Match</button>
-                        <button type="button" class="btn btn-warning square" data-dismiss="modal">Send Message!</button>
+                        <button type="button" class="btn btn-info square disabled" id="next-match-button" disabled  title="Next Match (not yet implemented)">Next Match</button>
+                        <button type="button" class="btn btn-warning square" id="send-message" disabled title="Send Message (not yet implemented)">Send Message!</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="optionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="optionsModalLabel">App Options</h5>
+                        <h5 class="modal-title" id="errorModalLabel">Friend Finder</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
-                          <div class="form-group">
-                            <label for="gifResultLimit">Number of GIFs to return</label>
-                            <div id="slider">
-                                <input class="bar" type="range" id="rangeinput" value="10" min="1" max="50"/>
-                                <span class="highlight"></span>
-                                <output id="rangevalue">10</output>
-                            </div>
-                            <small id="slider-help" class="form-text text-muted">You can set the number of gifs initially displayed after clicking the topic. Does not apply to existing tabs.</small>
-
-                          </div>
-                    </form>
-
 
                     </div>
                     <div class="modal-footer">
-                        <button type ="button" id="options-submit" class="btn btn-primary square">Submit</button>
-
-                        <button type="button" class="btn btn-danger square" data-dismiss="modal">Cancel</button>
+                        <button type ="button" id="options-submit" class="btn btn-warning square" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -130,6 +115,23 @@
     <script>
 
         // console.log("loading");
+
+    showErrorModal = message => {
+                let element = $("<div>")
+                    .append($("<h3>").text("Error"))
+                    .append($("<p>").text(message));
+                // $()
+
+                // .append($("<img>").addClass("img-fluid")
+                //     .attr("src", res.photo)
+                //     .attr("data-toggle","popover").attr("data-placement","bottom")
+                //     .attr("data-content", res.name)
+                //     .css("maxheight", "400")
+                // )
+            $("#errorModal .modal-body").empty().append(element);
+            $("#errorModal").modal("show")
+
+    }
 
     $(document).ready(function() {
         // console.log("running");
@@ -150,21 +152,21 @@
             // console.log(data);
             questions.forEach(function(question, i) {
                 var element = $("<div>").addClass("form-group question-container")
-                    .append($("<h3>").text("Question " + i))
-                    .append($("<div>").attr("label", "question" + i)
+                    .append($("<h3>").text("Question " + (i + 1)))
+                    .append($("<div>").attr("label", "question" + (i+1))
                         .text(question)
                 );
                 let questionOptionsSelector = $("<select>").addClass("form-control survey-question")
                     .attr("id", "question" + i);
                     // let rand = Math.floor(Math.random()*5)+1;
                 [0, 1, 2, 3, 4, 5].forEach(function(response) {
-                    questionOptionsSelector.append($("<option>").data("question-num", i)
+                    questionOptionsSelector.append($("<option>").data("question-num", (i+1))
                         .text(responseText[response])
                         .attr("value", response > 0 ? response :"")
                         // .attr("value", response > 0 ? response : Math.floor(Math.random(5)))
                         .prop("selected", response === 0)
                         // .prop("selected", response === rand)
-                        .attr("placeholder", "Choose an answer")
+                        // .attr("placeholder", "Choose an answer")
                     )
                 });
                 element.append(questionOptionsSelector);
@@ -188,20 +190,24 @@
             // children.each(function(i, j) { console.log(i, $(j.this))});
             var surveyResponses = $.map($(".survey-question"), element => $(element).val()).map(text => parseInt(text));
 
-            // console.log("surveyResponses: ", surveyResponses);
-            if (surveyResponses.some(response => isNaN(response))) {
-                console.log("Please resond to all questions!");
-                return;
-            }
             if (name.length < 1) {
-                console.log("please input a name");
+                // console.log("Please provide a name!");
+                showErrorModal("Please provide a name!")
                 return;
             }
-            if (image.length < 1) {
+            else if (image.length < 1) {
                 console.log("Please provide an image");
+                showErrorModal("Please provide an image url!")
+
                 return;
             }
 
+            // console.log("surveyResponses: ", surveyResponses);
+            else if (surveyResponses.some(response => isNaN(response))) {
+                // console.log("Please resond to all questions!");
+                showErrorModal("Please resond to all questions!")
+                return;
+            }
             // clear responses:
             $("#nameInput, #image").val("");
             $(".survey-question").val("");
@@ -227,7 +233,7 @@
                     .attr("data-content", res.name)
                     .css("maxheight", "400")
                 )
-            $("#friendModal .modal-body").append(element);
+            $("#friendModal .modal-body").empty().append(element);
             $("#friendModal").modal("show")
             })
 
